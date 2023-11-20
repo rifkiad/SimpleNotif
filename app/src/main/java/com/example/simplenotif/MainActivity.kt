@@ -1,23 +1,17 @@
 package com.example.simplenotif
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
-import android.Manifest
-import android.app.PendingIntent
-import android.content.Intent
-import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import com.example.simplenotif.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var notificationManager: MyNotificationManager
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -35,58 +29,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*
-        Untuk Android 13 ke atas perlu menambahkan permission
-        */
         if (Build.VERSION.SDK_INT >= 33) {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
+
+        notificationManager = MyNotificationManager(this)
 
         val title = getString(R.string.notification_title)
         val message = getString(R.string.notification_message)
 
         binding.btnSendNotification.setOnClickListener {
-            sendNotification(title, message)
+            notificationManager.showNotification(title, message)
         }
-    }
-
-    private fun sendNotification(title: String, message: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=62895622188981&text=HaloTest"))
-        //8986852313
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
-        )
-
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(title)
-            .setSmallIcon(R.drawable.ic_notifications)
-            .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setSubText(getString(R.string.notification_subtext))
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            builder.setChannelId(CHANNEL_ID)
-            notificationManager.createNotificationChannel(channel)
-        }
-        val notification = builder.build()
-        notificationManager.notify(NOTIFICATION_ID, notification)
-    }
-
-    companion object {
-        private const val NOTIFICATION_ID = 1
-        private const val CHANNEL_ID = "channel_01"
-        private const val CHANNEL_NAME = "dicoding channel"
     }
 }

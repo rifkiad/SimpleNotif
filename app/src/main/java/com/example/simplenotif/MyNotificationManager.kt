@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 
-class NotificationManager(private val context: Context) {
+class MyNotificationManager(private val context: Context) {
 
     fun showNotification(title: String, message: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=62895622188981&text=HaloTest"))
