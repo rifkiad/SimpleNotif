@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SimpleNotif</string>
+    <string name="app_name">Notification</string>
     <string name="send_notif">Send Notif</string>
     <string name="notification_title">Heinlyyy</string>
     <string name="notification_message">test....</string>

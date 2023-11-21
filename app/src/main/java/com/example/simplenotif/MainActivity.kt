@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendNotification(title: String, message: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=62895622188981&text=HaloTest"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=62895622188981&text=Halo Test...ini adalah contoh notification menggunakan PendingIntent"))
         //8986852313
         val pendingIntent = PendingIntent.getActivity(
             this,
