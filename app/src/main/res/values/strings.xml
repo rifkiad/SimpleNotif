@@ -4,4 +4,7 @@
     <string name="notification_title">Heinlyyy</string>
     <string name="notification_message">test....</string>
     <string name="notification_subtext">Reminder</string>
+    <string name="open_detail">Open Detail</string>
+    <string name="title">Title</string>
+    <string name="message">Message</string>
 </resources>
